@@ -17,4 +17,4 @@ def upload_multiple(request):
     for rec_file in files:
         with open(f'load/{rec_file.name}', 'wb') as f:
             f.write(rec_file.read())
-    return redirect('/success/')
+    return redirect('/upload/')

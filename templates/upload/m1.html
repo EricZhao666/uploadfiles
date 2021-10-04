@@ -139,12 +139,26 @@ a {
     background-color: crimson;
 }
     </style>
-
-
+<script>
+     function  goprogress(){
+         var  pro=document.getElementsByTagName( "progress" )[0];
+         gotoend(pro,0);
+     }
+     function  gotoend(pro,value){
+         var  value=value+1;
+         pro.value=value;
+         if (value<100) {
+             setTimeout( function (){gotoend(pro, value);},20)
+         } else {
+             document.getElementById("fm").submit();
+             setTimeout( function (){alert( "任务完成" )},20);
+         }
+     }
+</script>
 </head>
 
 <body>
-    <form action="/to_upload" method="post" enctype="multipart/form-data" >
+    <form id="fm" action="/to_upload" method="post" enctype="multipart/form-data" >
         {% csrf_token %}
         {% load static %}
         <div class="all">
@@ -158,11 +172,11 @@ a {
                 <b></b>
                 <br><br>
                 <a href="javascript" class="file">选择文件
-{#                <input class="btn1" type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" />#}
-                <input class="btn1" type="file" name="upload_file" multiple>
+                <input class="btn1" type="file" name="upload_file" multiple >
             </a>
-                <input class="btn2" type="submit" value="上传文件">
-{#                <button class="btn2" onclick="uploadFile()">上传文件</button>#}
+                <input class="btn2" type="button" value="上传文件" onclick="goprogress()">
+                <br><br>
+             <progress value= "0"   max= "100" >您的浏览器不支持progress元素</progress>
 
 
 
